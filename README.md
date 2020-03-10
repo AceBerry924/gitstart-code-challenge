@@ -22,7 +22,7 @@ Migrate all the src/components/KanbanBoard/*.js files to src/components/KanbanBo
 
 Make sure to use Typescript types instead to PropTypes and try to follow conventions similar to the rest of the code base.
 
-In the KanbanBoard component, currently there is fetchData hook that makes a rest call to get the data which is to 
+In the `KanbanBoard component`, currently there is fetchData hook that makes a rest call to get the data which is to 
 be shown in the board. 
 Please delete this hook and refactor the component so that it gets all this data from the component props. 
 The types for the props should look like the following:
@@ -48,7 +48,7 @@ export interface Task {
  deadline: Moment;
 }
 
-Add the KanbanBoard component in the story book (https://storybook.js.org/). 
+Add the KanbanBoard component in the `Storybook` (https://storybook.js.org/). 
 You can use the dummy data in src/template/utils/axios.js (line 1284) to render the component in the storybook.
 
 
