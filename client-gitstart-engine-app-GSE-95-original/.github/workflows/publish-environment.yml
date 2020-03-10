@@ -1,0 +1,43 @@
+on: push
+name: Publish Environment
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        version: '270.0.0'
+        service_account_email: engine@murcul-205921.iam.gserviceaccount.com
+        service_account_key: ${{ secrets.GCLOUD_AUTH }}
+
+    # Configure docker to use the gcloud command-line tool as a credential helper
+    - run: |
+        # Set up docker to authenticate
+        # via gcloud command-line tool.
+        gcloud auth configure-docker
+
+    - name: Build Container
+      env:
+        GCP_PROJECT: murcul-205921
+      run: docker build --file Dockerfile -t gcr.io/$GCP_PROJECT/gitstart-engine-app:${{ steps.extract_branch.outputs.branch }} .
+
+    - name: Push IDE GCR
+      env:
+        GCP_PROJECT: murcul-205921
+      run: docker push gcr.io/$GCP_PROJECT/gitstart-engine-app:${{ steps.extract_branch.outputs.branch }}
+
+    - name: Deploy To FeaturePeek
+      env:
+        GCP_PROJECT: murcul-205921
+        GOOGLE_COMPUTE_ZONE: us-west2-b
+        GOOGLE_PROJECT_ID: murcul-205921
+        GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
+        CI: true
+      run: |
+        bash <(curl -s https://peek.run/ci) -a main -p gcr.io/$GCP_PROJECT/gitstart-engine-app:${{ steps.extract_branch.outputs.branch }}

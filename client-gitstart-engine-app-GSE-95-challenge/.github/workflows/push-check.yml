@@ -1,0 +1,40 @@
+on: push
+name: Check
+jobs:
+  build:
+    name: Build App 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: yarn install
+      uses: docker://node:12.14.0
+      with:
+        entrypoint: yarn
+        args: install
+    - name: yarn run build
+      uses: docker://node:12.14.0
+      with:
+        entrypoint: yarn
+        args: run build
+    - name: Prettier Check
+      uses: docker://node:12.14.0
+      with:
+        entrypoint: yarn
+        args: run prettier-check
+    - name: Check if updated types exist
+      uses: docker://node:12.14.0
+      with:
+        entrypoint: yarn
+        args: run codegen:clean && git status --porcelain --untracked-files=no
+    - name: Duplicated Dependencies Check
+      uses: docker://node:12.14.0
+      with:
+        entrypoint: yarn 
+        args: run dedupe-check
+    - name: Type Check
+      uses: docker://node:12.14.0
+      with:
+        entrypoint: yarn
+        args: run type-check
+    - name: Automate Check
+      uses: docker://node:12.14.0
