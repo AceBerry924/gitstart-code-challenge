@@ -1,7 +1,7 @@
 # gitstart-code-challenge
-## Code Challenge for Gitstart 
+## Code Challenge for GitStart 
 
-### Gitstart Dashboard project code challenge
+### GitStart Dashboard project Code Challenge
 
 
 Welcome to the coding challenge! In this step you will be asked to complete a coding task using the zip: 
