@@ -47,6 +47,7 @@ export interface Task {
  progress: number;
  deadline: Moment;
 }
+
 Add the KanbanBoard component in the story book (https://storybook.js.org/). 
 You can use the dummy data in src/template/utils/axios.js (line 1284) to render the component in the storybook.
 
@@ -54,10 +55,10 @@ You can use the dummy data in src/template/utils/axios.js (line 1284) to render 
 
 Lastly, please ensure make sure the following command run without any issues before submitting your work
 
-yarn
-yarn run build
-yarn run type-check
-yarn run type-coverage
+`yarn`
+`yarn run build`
+`yarn run type-check`
+`yarn run type-coverage`
 
 
 In order to setup the project locally and instructions on how to add components to storybook, 
