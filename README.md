@@ -3,7 +3,7 @@
 
 ### GitStart Dashboard project Code Challenge
 
-![alt text](https://ibb.co/y6rtcsP)
+![alt text](https://i.ibb.co/YcxmFjQ/Gitstart-Dashboard.png)
 
 Welcome to the coding challenge! In this step you will be asked to complete a coding task using the zip: 
 https://drive.google.com/file/d/17kzgQ478m-2XzM05AB5urHCdoCJwXoXk/view?usp=sharing
